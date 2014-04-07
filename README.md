@@ -1,6 +1,9 @@
 # MachineClassifier
 
-TODO: Write a gem description
+MachineClassifier is a thin wrapper around the APIs used to
+call machine learning classification systems.
+
+Currently, only Google Prediction is supported.
 
 ## Installation
 
@@ -18,7 +21,30 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+### Google Prediction
+
+```ruby
+require 'machine_classifier'
+
+text = 'Some text that I want to classify'
+
+configuration = MachineClassifier::Configuration.new do |conf|
+  conf.api_version           = '1.6'
+  conf.developer_email       = 'developer_email@example.com'
+  conf.private_key           = 'Binary data'
+  conf.private_key_password  = 'private_key_password'
+  conf.project               = 'Google Prediction Project Name'
+  conf.model                 = 'Google Prediction Model'
+  conf.application_name      = 'My Appliction'
+  conf.application_version   = '1.0.0'
+end
+
+client = MachineClassifier::Client.new(configuration)
+result = client.call(text)
+raise 'Classification call failed' if not result.success?
+puts "Text: #{text}"
+puts "Label: #{result.winner}"
+```
 
 ## Contributing
 
