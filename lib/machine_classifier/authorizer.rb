@@ -1,5 +1,3 @@
-require 'base64'
-
 module MachineClassifier
   class Authorizer < Struct.new(:configuration)
     SERVICE_URL = 'https://www.googleapis.com/auth/prediction'
@@ -19,11 +17,7 @@ module MachineClassifier
     end
 
     def key
-      OpenSSL::PKCS12.new(private_key, configuration.private_key_password).key
-    end
-
-    def private_key
-      Base64.decode64(configuration.private_key)
+      OpenSSL::PKCS12.new(configuration.private_key, configuration.private_key_password).key
     end
   end
 end

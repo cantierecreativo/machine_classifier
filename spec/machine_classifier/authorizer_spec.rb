@@ -1,18 +1,16 @@
 require 'spec_helper'
-require 'base64'
 require 'google/api_client'
 
 describe MachineClassifier::Authorizer do
   let(:configuration) do
     double(
       'MachineClassifier::Configuration',
-      private_key: encoded_private_key,
+      private_key: private_key,
       private_key_password: 'foo',
       developer_email: 'dev@example.com'
     )
   end
   let(:private_key) { 'BinaryPrivateData' }
-  let(:encoded_private_key) { Base64.encode64(private_key) }
 
   subject do
     MachineClassifier::Authorizer.new(configuration)
