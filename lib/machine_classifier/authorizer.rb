@@ -17,7 +17,7 @@ module MachineClassifier
     end
 
     def key
-      OpenSSL::PKCS12.new(configuration.private_key, configuration.private_key_password).key
+      OpenSSL::PKCS12.new(Base64.decode64(configuration.private_key), configuration.private_key_password).key
     end
   end
 end
